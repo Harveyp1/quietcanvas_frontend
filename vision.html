@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vision - The Quiet Canvas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Black, Grey, and Red color scheme
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Lora', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-red': '#DC2626',
+                        'brand-red-hover': '#B91C1C',
+                        'brand-gray': '#1F2937',
+                        'brand-black': '#111827',
+                        'brand-light-gray': '#F3F4F6',
+                        'brand-mid-gray': '#4B5563',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        #night-sky-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        /* Simple scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #4B5563; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #DC2626; }
+
+        /* Classes for animation */
+        .fade-in-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-brand-light-gray font-sans">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 w-full z-30 p-4 sm:p-6 bg-brand-black bg-opacity-80 backdrop-blur-sm text-white border-b border-brand-mid-gray/50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html">
+                <img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex space-x-6 text-lg">
+                <a href="index.html" class="hover:text-brand-red transition-colors duration-300">Home</a>
+                <a href="vision.html" class="text-brand-red font-bold transition-colors duration-300">The Vision</a>
+                <a href="founders.html" class="hover:text-brand-red transition-colors duration-300">Become a Founder</a>
+                <a href="influencers.html" class="hover:text-brand-red transition-colors duration-300">Press & Influencers</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none z-30">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-brand-black bg-opacity-95 z-50 flex flex-col items-center justify-center text-white">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 focus:outline-none">
+             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <nav class="flex flex-col space-y-8 text-2xl text-center">
+            <a href="index.html" class="hover:text-brand-red transition-colors duration-300">Home</a>
+            <a href="vision.html" class="text-brand-red font-bold transition-colors duration-300">The Vision</a>
+            <a href="founders.html" class="hover:text-brand-red transition-colors duration-300">Become a Founder</a>
+            <a href="influencers.html" class="hover:text-brand-red transition-colors duration-300">Press & Influencers</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-[60vh] flex items-center justify-center text-white overflow-hidden bg-brand-black">
+        <canvas id="night-sky-canvas"></canvas>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4">Our Guiding Principle</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">To build a sanctuary from the noise, where the Texas coast meets a blanket of stars.</p>
+        </div>
+    </section>
+
+    <!-- The Problem Section -->
+    <section class="py-20 px-6 bg-brand-black text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">Escaping the Digital Deluge</h2>
+            <p class="text-lg text-brand-light-gray leading-relaxed">We live in a world of constant notifications and overwhelming noise. True quiet has become the ultimate luxury. The Quiet Canvas is our answer—a place where the rhythm of the Gulf waves replaces the ping of your phone. It's a meticulously designed coastal retreat to help you disconnect from the chaos and reconnect with the simple, profound beauty of nature.</p>
+        </div>
+    </section>
+
+    <!-- Two Sides of Tranquility Section -->
+    <section class="py-20 px-6 bg-brand-gray">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-serif text-white mb-16">Two Sides of Tranquility</h2>
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-item">
+                    <img src="https://placehold.co/600x400/111827/F3F4F6?text=Private+Sanctuary" alt="A secluded canvas tent nestled in coastal dunes at twilight" class="rounded-lg shadow-2xl mb-6 w-full">
+                    <h3 class="text-2xl font-serif text-brand-red mb-3">Private Sanctuaries</h3>
+                    <p class="text-brand-light-gray">Each canvas suite is a self-contained haven of peace. Designed for privacy and comfort, your tent is where you can read, reflect, and recharge in solitude, surrounded only by the sounds of the coast and the vast sky.</p>
+                </div>
+                <div class="fade-in-item" style="transition-delay: 200ms;">
+                    <img src="https://placehold.co/600x400/DC2626/111827?text=The+Oasis" alt="A modern pool and lounge area with a fire pit under the stars" class="rounded-lg shadow-2xl mb-6 w-full">
+                    <h3 class="text-2xl font-serif text-brand-red mb-3">The Oasis: A Communal Heart</h3>
+                    <p class="text-brand-light-gray">At the center of our retreat will be The Oasis—a beautifully designed pool and lounge area. It’s a place to gather, share stories around the fire pit, and connect with fellow founders under the stars. It's community, when you choose it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Roadmap Section -->
+    <section id="roadmap" class="py-20 px-6 bg-brand-black">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-serif text-white text-center mb-16">The Path to Creation</h2>
+            <div class="relative">
+                <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-brand-mid-gray hidden md:block"></div>
+                
+                <div class="fade-in-item mb-12 md:flex items-center">
+                    <div class="md:w-1/2 md:pr-8 text-center md:text-right">
+                        <div class="text-brand-red font-bold text-2xl">Phase 1: Presale & Funding</div>
+                        <h3 class="text-2xl font-serif text-white my-2">Land Acquisition</h3>
+                        <p class="text-brand-light-gray"><strong>Timeline: Q1-Q2 2027.</strong> This is where you come in. Your support as a Founder provides the capital to purchase the perfect property. We are currently targeting a minimum of 5 acres of secluded coastal land in the <strong>South Padre Island & Port Isabel area</strong>.</p>
+                    </div>
+                    <div class="roadmap-circle w-10 h-10 bg-brand-mid-gray rounded-full mx-auto my-4 md:my-0 flex items-center justify-center text-white font-bold flex-shrink-0 z-10 transition-colors duration-500">1</div>
+                    <div class="md:w-1/2 md:pl-8"></div>
+                </div>
+
+                 <div class="fade-in-item mb-12 md:flex flex-row-reverse items-center">
+                    <div class="md:w-1/2 md:pl-8 text-center md:text-left">
+                        <div class="text-brand-red font-bold text-2xl">Phase 2: Permitting & Buildout</div>
+                        <h3 class="text-2xl font-serif text-white my-2">Site Development</h3>
+                        <p class="text-brand-light-gray"><strong>Timeline: Q3 2027 - Q1 2028.</strong> With the land secured, we will begin low-impact development. This includes permits, infrastructure, access roads, and construction of the tent platforms and the <strong>communal lodge & pool area</strong>.</p>
+                    </div>
+                    <div class="roadmap-circle w-10 h-10 bg-brand-mid-gray rounded-full mx-auto my-4 md:my-0 flex items-center justify-center text-white font-bold flex-shrink-0 z-10 transition-colors duration-500">2</div>
+                    <div class="md:w-1/2 md:pr-8"></div>
+                </div>
+                
+                <div class="fade-in-item mb-12 md:flex items-center">
+                    <div class="md:w-1/2 md:pr-8 text-center md:text-right">
+                        <div class="text-brand-red font-bold text-2xl">Phase 3: The First Look</div>
+                        <h3 class="text-2xl font-serif text-white my-2">Founders' Opening</h3>
+                        <p class="text-brand-light-gray"><strong>Timeline: Spring 2028.</strong> Our Visionary and Legacy founders will be invited for an exclusive opening weekend—a first look at the dream they helped build. This will be a celebratory event on the Texas coast.</p>
+                    </div>
+                    <div class="roadmap-circle w-10 h-10 bg-brand-mid-gray rounded-full mx-auto my-4 md:my-0 flex items-center justify-center text-white font-bold flex-shrink-0 z-10 transition-colors duration-500">3</div>
+                    <div class="md:w-1/2 md:pl-8"></div>
+                </div>
+
+                <div class="fade-in-item md:flex flex-row-reverse items-center">
+                    <div class="md:w-1/2 md:pl-8 text-center md:text-left">
+                        <div class="text-brand-red font-bold text-2xl">Phase 4: Welcome Home</div>
+                        <h3 class="text-2xl font-serif text-white my-2">Grand Opening</h3>
+                        <p class="text-brand-light-gray"><strong>Timeline: Summer 2028.</strong> The Quiet Canvas officially opens its doors to all our founders and the public. The vouchers from your founder packages can now be redeemed for your well-deserved, peaceful coastal retreat.</p>
+                    </div>
+                    <div class="roadmap-circle w-10 h-10 bg-brand-mid-gray rounded-full mx-auto my-4 md:my-0 flex items-center justify-center text-white font-bold flex-shrink-0 z-10 transition-colors duration-500">4</div>
+                    <div class="md:w-1/2 md:pr-8"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-20 px-6 bg-brand-black text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">Be Part of the Origin Story</h2>
+            <p class="text-lg text-brand-light-gray leading-relaxed mb-8">This is more than a vacation. It's a chance to build a legacy and create a sanctuary for generations to come. Join us, and let's build it together.</p>
+            <a href="founders.html" class="bg-brand-red text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-brand-red-hover transition-all duration-300">View Founder Packages</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 bg-brand-gray text-center text-sm text-gray-400 border-t border-brand-mid-gray">
+        <a href="index.html">
+            <img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 mx-auto mb-4">
+        </a>
+        <p class="mb-4">&copy; 2025 The Quiet Canvas. Join us in building the dream.</p>
+    </footer>
+
+    <script>
+        // --- Mobile menu toggle script ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('#mobile-menu a, header a');
+
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+        closeMobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if(!mobileMenu.classList.contains('hidden')) {
+                   mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // --- Animated Night Sky script ---
+        const canvas = document.getElementById('night-sky-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let stars = [];
+        const numStars = 400; 
+        const maxStarRadius = 1.5;
+
+        function setCanvasSize() {
+            const hero = document.querySelector('.h-\\[60vh\\]');
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        }
+
+        function Star(x, y, radius, color, velocity) {
+            this.x = x; this.y = y; this.radius = radius; this.color = color; this.velocity = velocity;
+        }
+
+        Star.prototype.draw = function() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        Star.prototype.update = function() {
+            this.x += this.velocity.x; 
+            this.y += this.velocity.y;
+
+            if (this.x - this.radius > canvas.width) this.x = 0 - this.radius;
+            if (this.x + this.radius < 0) this.x = canvas.width + this.radius;
+            if (this.y - this.radius > canvas.height) this.y = 0 - this.radius;
+            if (this.y + this.radius < 0) this.y = canvas.height + this.radius;
+            this.draw();
+        }
+
+        function initStars() {
+            setCanvasSize();
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                const radius = Math.random() * maxStarRadius;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                let color;
+                const rand = Math.random();
+                if (rand < 0.01) { color = 'rgba(220, 38, 38, 0.7)'; } 
+                else { color = 'rgba(229, 231, 235, 0.8)'; }
+                const velocity = { x: (Math.random() - 0.5) * 0.2, y: (Math.random() - 0.5) * 0.2 };
+                stars.push(new Star(x, y, radius, color, velocity));
+            }
+        }
+
+        function animateStars() {
+            requestAnimationFrame(animateStars);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => star.update());
+        }
+        
+        window.addEventListener('resize', initStars);
+
+        // --- Fade-in Animation Script ---
+        function initFadeInAnimation() {
+            const items = document.querySelectorAll('.fade-in-item');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        const circle = entry.target.querySelector('.roadmap-circle');
+                        if(circle) {
+                            circle.classList.remove('bg-brand-mid-gray');
+                            circle.classList.add('bg-brand-red');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            items.forEach((item) => {
+                observer.observe(item);
+            });
+        }
+        
+        // --- Run all scripts on load ---
+        window.onload = function() {
+            initStars();
+            animateStars();
+            initFadeInAnimation();
+        };
+    </script>
+</body>
+</html>
