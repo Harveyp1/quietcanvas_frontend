@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - The Quiet Canvas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'serif': ['Lora', 'serif'], 'sans': ['Montserrat', 'sans-serif'] },
+                    colors: {
+                        'brand-bg': '#0f0f24',
+                        'brand-surface': '#1a1a2e',
+                        'brand-primary': '#e040fb',
+                        'brand-primary-hover': '#c511da',
+                        'brand-secondary': '#ffab40',
+                        'brand-text': '#e0e0e0',
+                        'brand-border': '#30304a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f24; }
+        ::-webkit-scrollbar-thumb { background: #30304a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e040fb; }
+        .admin-tab { cursor: pointer; padding: 0.75rem 1.5rem; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+        .admin-tab.active { color: #e040fb; border-bottom-color: #e040fb; }
+
+        .video-background-full {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .video-background-full iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%; 
+            height: 150%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text font-sans">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 w-full z-30 p-4 sm:p-6 bg-brand-bg bg-opacity-80 backdrop-blur-sm text-white border-b border-brand-border/50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html"><img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 w-auto"></a>
+            <nav class="hidden md:flex space-x-6 text-lg items-center">
+                <a href="index.html" class="hover:text-brand-primary">Home</a>
+                <a href="vision.html" class="hover:text-brand-primary">The Vision</a>
+                <a href="experience.html" class="hover:text-brand-primary">The Experience</a>
+                <a href="founders.html" class="hover:text-brand-primary">Become a Founder</a>
+                <a href="influencers.html" class="hover:text-brand-primary">Press & Influencers</a>
+                <a href="account.html" class="bg-brand-surface text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-primary flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
+                    <span>Account</span>
+                </a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none z-30"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
+        </div>
+    </header>
+    
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-brand-bg bg-opacity-95 z-50 flex flex-col items-center justify-center text-white"><button id="close-mobile-menu" class="absolute top-6 right-6"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button><nav class="flex flex-col space-y-8 text-2xl text-center"><a href="index.html">Home</a><a href="vision.html">The Vision</a><a href="experience.html">The Experience</a><a href="founders.html">Become a Founder</a><a href="influencers.html">Press & Influencers</a><a href="account.html" class="text-brand-primary font-bold">My Account</a></nav></div>
+    
+    <main id="app-container" class="min-h-screen"></main>
+
+    <footer class="py-10 px-6 bg-brand-surface text-center text-sm text-gray-400 border-t border-brand-border"><a href="index.html"><img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 mx-auto mb-4"></a><p class="mb-4">&copy; 2025 The Quiet Canvas. Join the expedition.</p></footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, getDoc, query, orderBy, where, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const firebaseConfig = {
+                apiKey: "AIzaSyA12RPgTVlG77PTubR3cEtG6Pwv4A53_po",
+                authDomain: "the-quiet-canvas.firebaseapp.com",
+                projectId: "the-quiet-canvas",
+                storageBucket: "the-quiet-canvas.appspot.com",
+                messagingSenderId: "790073077977",
+                appId: "1:790073077977:web:e9cfbbfa6c94edc9eacec8",
+                measurementId: "G-VQVFRL9GDB"
+            };
+            
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+
+            const appContainer = document.getElementById('app-container');
+            let allData = { influencers: [], founders: [], users: [] };
+            let currentPage = 1;
+            const itemsPerPage = 10;
+            let currentUser = null; 
+            let captchaAnswer = 0;
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const userDocRef = doc(db, "users", user.uid);
+                    let userDoc = await getDoc(userDocRef);
+                    if (!userDoc.exists()) {
+                        const isAdmin = user.email === 'info@thequietcanvas.com';
+                        const newUser = { email: user.email, fullName: user.displayName || 'New User', phone: user.phoneNumber || '', role: isAdmin ? 'admin' : 'user', joinDate: new Date().toISOString().split('T')[0] };
+                        await setDoc(userDocRef, newUser);
+                        currentUser = { uid: user.uid, ...newUser };
+                    } else {
+                        currentUser = { uid: user.uid, ...userDoc.data() };
+                    }
+                    if (currentUser.role === 'admin') await fetchAdminData();
+                    else await fetchUserData(user.uid, user.email);
+                } else {
+                    currentUser = null;
+                }
+                render();
+            });
+            
+            async function fetchAdminData() { /* ... unchanged ... */ }
+            async function fetchUserData(userId, userEmail) { /* ... unchanged ... */ }
+
+            function render() {
+                appContainer.className = 'min-h-screen';
+                if (!currentUser) {
+                    appContainer.classList.add('relative', 'flex', 'items-center', 'justify-center', 'overflow-hidden');
+                    renderLogin();
+                } else {
+                    appContainer.classList.remove('py-20', 'px-6', 'flex', 'items-center', 'justify-center');
+                    if (currentUser.role === 'admin') renderAdminDashboard();
+                    else renderFounderDashboard();
+                }
+            }
+            
+            function renderLogin(isSignUp = false) {
+                const title = isSignUp ? 'Create Account' : 'Account Login';
+                const buttonText = isSignUp ? 'Sign Up' : 'Sign In';
+                const toggleText = isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up";
+                
+                let num1 = 0, num2 = 0;
+                if(isSignUp) {
+                    num1 = Math.floor(Math.random() * 10) + 1;
+                    num2 = Math.floor(Math.random() * 10) + 1;
+                    captchaAnswer = num1 + num2;
+                }
+
+                const signupFields = isSignUp ? `
+                    <div><label for="fullName" class="block text-sm font-medium">Full Name</label><input type="text" id="fullName" required class="mt-1 block w-full bg-brand-bg border-brand-border rounded p-2 text-brand-text focus:ring-brand-primary focus:border-brand-primary"></div>
+                    <div><label for="phone" class="block text-sm font-medium">Phone (Optional)</label><input type="tel" id="phone" class="mt-1 block w-full bg-brand-bg border-brand-border rounded p-2 text-brand-text focus:ring-brand-primary focus:border-brand-primary"></div>
+                    <div class="bg-brand-bg p-3 rounded-md border border-brand-border">
+                        <label for="captcha" class="block text-sm font-medium text-center">Security Check: What is ${num1} + ${num2}?</label>
+                        <input type="number" id="captcha" required class="mt-2 block w-full bg-brand-surface rounded p-2 text-brand-text text-center focus:ring-brand-primary focus:border-brand-primary">
+                    </div>
+                ` : '';
+
+                appContainer.innerHTML = `
+                    <div class="video-background-full"><iframe id="login-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+                    <div class="absolute inset-0 bg-brand-bg opacity-50 z-10"></div>
+                    <div class="relative z-20 max-w-md w-full"><div class="bg-brand-surface/50 backdrop-blur-lg p-8 rounded-lg space-y-4 border border-brand-border/50"><h1 class="text-4xl font-serif text-white text-center mb-4">${title}</h1><div id="auth-error" class="hidden bg-brand-primary/10 text-brand-primary p-3 rounded-md text-center"></div><button id="google-login-button" class="w-full bg-white text-gray-800 font-semibold py-3 rounded-lg hover:bg-gray-200 flex items-center justify-center space-x-2 transition-colors"><svg class="w-6 h-6" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg><span>Continue with Google</span></button><div class="flex items-center"><div class="flex-grow bg-brand-border h-px"></div><span class="px-4 text-sm text-brand-mid-gray">OR</span><div class="flex-grow bg-brand-border h-px"></div></div>${signupFields}<div><label for="email" class="block text-sm font-medium">Email</label><input type="email" id="email" class="mt-1 block w-full bg-brand-bg border-brand-border rounded p-2 text-brand-text focus:ring-brand-primary focus:border-brand-primary"></div><div><label for="password" class="block text-sm font-medium">Password (min. 6 characters)</label><input type="password" id="password" class="mt-1 block w-full bg-brand-bg border-brand-border rounded p-2 text-brand-text focus:ring-brand-primary focus:border-brand-primary"></div><button id="submit-button" class="w-full bg-brand-primary text-white font-bold py-3 rounded-lg hover:bg-brand-primary-hover">${buttonText}</button><p class="text-center mt-4"><button id="toggle-auth" class="text-brand-text text-sm hover:underline">${toggleText}</button></p></div></div>
+                    </div>`;
+                document.getElementById('submit-button').addEventListener('click', isSignUp ? handleSignUp : handleLogin);
+                document.getElementById('google-login-button').addEventListener('click', handleGoogleLogin);
+                document.getElementById('toggle-auth').addEventListener('click', () => renderLogin(!isSignUp));
+                
+                const videoId = 'ztVV54sPOns';
+                const videoFrame = document.getElementById('login-video');
+                if (videoFrame) {
+                    const randomStartTime = Math.floor(Math.random() * 10800);
+                    videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=${randomStartTime}`;
+                }
+            }
+
+            async function handleLogin() { /* ... */ }
+            async function handleSignUp() { /* ... */ }
+            async function handleGoogleLogin() { /* ... */ }
+            function handleLogout() { signOut(auth); }
+            
+            function renderAdminDashboard() { /* ... */ }
+            function renderFounderDashboard() { /* ... */ }
+
+            // --- Mobile Menu Handlers ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+            closeMobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            document.querySelectorAll('#mobile-menu a, header a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(!mobileMenu.classList.contains('hidden')) {
+                       mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Experience - The Quiet Canvas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'serif': ['Lora', 'serif'], 'sans': ['Montserrat', 'sans-serif'] },
+                    colors: {
+                        'brand-bg': '#0f0f24',
+                        'brand-surface': '#1a1a2e',
+                        'brand-primary': '#e040fb',
+                        'brand-primary-hover': '#c511da',
+                        'brand-secondary': '#ffab40',
+                        'brand-text': '#e0e0e0',
+                        'brand-border': '#30304a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f24; }
+        ::-webkit-scrollbar-thumb { background: #30304a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e040fb; }
+        .fade-in-item { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-item.is-visible { opacity: 1; transform: translateY(0); }
+        .video-background { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; transform: translate(-50%, -50%); pointer-events: none; overflow: hidden; z-index: 1; }
+        .video-background iframe { width: calc(100% + 200px); height: calc(100% + 200px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        #main-header { transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out; }
+        #main-header.scrolled { background-color: rgba(15, 15, 36, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: rgba(48, 48, 74, 0.5); }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text font-sans">
+
+    <!-- Header & Navigation -->
+    <header id="main-header" class="fixed top-0 w-full z-30 p-4 sm:p-6 text-white border-b border-transparent">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html"><img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 w-auto"></a>
+            <nav class="hidden md:flex space-x-6 text-lg items-center">
+                <a href="index.html" class="hover:text-brand-primary">Home</a>
+                <a href="vision.html" class="hover:text-brand-primary">The Vision</a>
+                 <a href="experience.html" class="text-brand-primary font-bold">The Experience</a>
+                <a href="founders.html" class="hover:text-brand-primary">Become a Founder</a>
+                <a href="influencers.html" class="hover:text-brand-primary">Press & Influencers</a>
+                <a href="account.html" class="bg-brand-surface text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-primary flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
+                    <span>Account</span>
+                </a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none z-30"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
+        </div>
+    </header>
+    
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-brand-bg bg-opacity-95 z-50 flex flex-col items-center justify-center text-white"><button id="close-mobile-menu" class="absolute top-6 right-6"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button><nav class="flex flex-col space-y-8 text-2xl text-center"><a href="index.html">Home</a><a href="vision.html">The Vision</a><a href="experience.html" class="text-brand-primary font-bold">The Experience</a><a href="founders.html">Become a Founder</a><a href="influencers.html">Press & Influencers</a><a href="account.html">Account</a></nav></div>
+    
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative h-[60vh] flex items-center justify-center text-white overflow-hidden bg-brand-bg">
+             <div class="video-background">
+                <iframe id="hero-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+             <div class="absolute inset-0 bg-black opacity-60 z-10"></div>
+            <div class="relative z-20 text-center px-4 fade-in-item">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4">The Terra Nova Experience</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto">This is more than a retreat. It's a journey to a new world.</p>
+            </div>
+        </section>
+        
+        <!-- The Concept Section -->
+        <section class="py-20 px-6 bg-brand-surface text-center">
+            <div class="max-w-3xl mx-auto fade-in-item">
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">Leave The Old World Behind</h2>
+                <p class="text-lg text-brand-text leading-relaxed">At The Quiet Canvas, you are not just a guest; you are a Voyager arriving at Terra Nova. Our entire experience is crafted around a single idea: to provide a sanctuary so complete, it feels like a world apart. A world free from digital noise, governed by the rhythm of the tides and the light of the stars. Your stay is a narrative, and you are the main character.</p>
+            </div>
+        </section>
+
+        <!-- The Audiobook Section -->
+        <section class="py-20 px-6 bg-brand-bg">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-item">
+                    <h2 class="text-3xl font-serif text-brand-primary mb-4">Your Voyage Begins Before You Arrive</h2>
+                    <p class="text-lg text-brand-text leading-relaxed mb-4">A week before your arrival, you'll receive a "Voyager's Transmission"—a link to a private, 20-minute audio experience. Designed to be played during your drive, this audiobook is the first step in your journey. It will guide you to consciously disconnect from the Old World, introduce you to the lore of Terra Nova, and build anticipation for the moment you arrive at the Shore of Tranquility.</p>
+                </div>
+                 <div class="fade-in-item">
+                     <img src="https://placehold.co/600x600/1a1a2e/e0e0e0?text=Audiobook+Experience" alt="A phone showing an audiobook player with a space-themed cover" class="rounded-lg shadow-2xl">
+                 </div>
+            </div>
+        </section>
+
+        <!-- The Lore Section -->
+        <section class="py-20 px-6 bg-brand-surface">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-12 fade-in-item">The Lore of Terra Nova</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="fade-in-item" style="transition-delay: 100ms;">
+                        <img src="https://placehold.co/400x300/e040fb/0f0f24?text=Habitats" alt="A single, glowing canvas tent under a starry sky" class="rounded-lg mb-4">
+                        <h3 class="text-2xl font-serif text-white mb-2">Observer Pods</h3>
+                        <p>Your private lodging is not a tent, but a self-sufficient "Habitat" or "Observer Pod," designed for comfort, reflection, and unparalleled views of the cosmos.</p>
+                    </div>
+                     <div class="fade-in-item" style="transition-delay: 200ms;">
+                         <img src="https://placehold.co/400x300/30304a/e0e0e0?text=The+Navigator" alt="A person looking through a large telescope at the night sky" class="rounded-lg mb-4">
+                        <h3 class="text-2xl font-serif text-white mb-2">The Navigator</h3>
+                        <p>Our resident astronomer is your guide to the stars. They lead nightly expeditions to chart the constellations and understand our place in the universe.</p>
+                    </div>
+                    <div class="fade-in-item" style="transition-delay: 300ms;">
+                        <img src="https://placehold.co/400x300/0f0f24/e0e0e0?text=Field+Kit" alt="An open journal, a star chart, and a vintage compass" class="rounded-lg mb-4">
+                        <h3 class="text-2xl font-serif text-white mb-2">Voyager's Field Kit</h3>
+                        <p>Upon arrival, you'll receive your field kit. It contains a logbook for your thoughts, a celestial chart, and a guide to the native flora and fauna of Terra Nova.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="py-20 px-6 bg-brand-bg text-center">
+            <div class="max-w-3xl mx-auto fade-in-item">
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">Fund the Expedition</h2>
+                <p class="text-lg text-brand-text leading-relaxed mb-8">This isn't just a business; it's an expedition to create a new world of tranquility. As a founder, you are funding the mission. You are one of the original Voyagers, and your legacy will be woven into the fabric of Terra Nova.</p>
+                <a href="founders.html" class="bg-brand-primary text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-brand-primary-hover transition-all duration-300">Join the Mission</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-10 px-6 bg-brand-surface text-center text-sm text-gray-400 border-t border-brand-border"><a href="index.html"><img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 mx-auto mb-4"></a><p class="mb-4">&copy; 2025 The Quiet Canvas. Join the expedition.</p></footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+            closeMobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            document.querySelectorAll('#mobile-menu a, header a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(!mobileMenu.classList.contains('hidden')) {
+                       mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            const videoId = 'ztVV54sPOns';
+            const videoFrame = document.getElementById('hero-video');
+            if (videoFrame) {
+                const randomStartTime = Math.floor(Math.random() * 10800);
+                videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=${randomStartTime}`;
+            }
+
+            const items = document.querySelectorAll('.fade-in-item');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            items.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 150}ms`;
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
