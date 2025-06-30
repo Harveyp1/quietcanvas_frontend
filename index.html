@@ -10,21 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     
     <script>
-        // Black, Grey, and Red color scheme
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        'serif': ['Lora', 'serif'],
-                        'sans': ['Montserrat', 'sans-serif'],
-                    },
+                    fontFamily: { 'serif': ['Lora', 'serif'], 'sans': ['Montserrat', 'sans-serif'] },
                     colors: {
-                        'brand-red': '#DC2626',
-                        'brand-red-hover': '#B91C1C',
-                        'brand-gray': '#1F2937',
-                        'brand-black': '#111827',
-                        'brand-light-gray': '#F3F4F6',
-                        'brand-mid-gray': '#4B5563',
+                        'brand-bg': '#0f0f24',
+                        'brand-surface': '#1a1a2e',
+                        'brand-primary': '#e040fb',
+                        'brand-primary-hover': '#c511da',
+                        'brand-secondary': '#ffab40',
+                        'brand-text': '#e0e0e0',
+                        'brand-border': '#30304a',
                     }
                 }
             }
@@ -32,284 +29,175 @@
     </script>
     
     <style>
-        #night-sky-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        /* Simple scrollbar styling for a more cohesive look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111827;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4B5563;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #DC2626;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f24; }
+        ::-webkit-scrollbar-thumb { background: #30304a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e040fb; }
         
-        /* Styles for the background video section */
-        .video-background-container {
-            position: relative;
-            overflow: hidden;
-        }
-        .video-background {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-        .video-background iframe {
-            width: 100vw;
-            height: 56.25vw; /* 16:9 aspect ratio */
-            min-width: 177.77vh; /* 16:9 aspect ratio */
-            min-height: 100vh;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+        .video-background-container { position: relative; overflow: hidden; background-color: #0f0f24; }
+        .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .video-background iframe { width: calc(100% + 200px); height: calc(100% + 200px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        #main-header { transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out; }
+        #main-header.scrolled { background-color: rgba(15, 15, 36, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: rgba(48, 48, 74, 0.5); }
     </style>
 </head>
-<body class="bg-brand-black text-brand-light-gray font-sans">
+<body class="bg-brand-bg text-brand-text font-sans">
 
     <!-- Header & Navigation -->
-    <header class="sticky top-0 w-full z-30 p-4 sm:p-6 bg-brand-black bg-opacity-80 backdrop-blur-sm text-white border-b border-brand-mid-gray/50">
+    <header id="main-header" class="fixed top-0 w-full z-30 p-4 sm:p-6 text-white border-b border-transparent">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html">
-                <img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 w-auto">
-            </a>
-            <nav class="hidden md:flex space-x-6 text-lg">
-                <a href="index.html" class="text-brand-red font-bold transition-colors duration-300">Home</a>
-                <a href="vision.html" class="hover:text-brand-red transition-colors duration-300">The Vision</a>
-                <a href="founders.html" class="hover:text-brand-red transition-colors duration-300">Become a Founder</a>
-                <a href="influencers.html" class="hover:text-brand-red transition-colors duration-300">Press & Influencers</a>
+            <a href="index.html"><img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 w-auto"></a>
+            <nav class="hidden md:flex space-x-6 text-lg items-center">
+                <a href="index.html" class="text-brand-primary font-bold">Home</a>
+                <a href="vision.html" class="hover:text-brand-primary">The Vision</a>
+                <a href="experience.html" class="hover:text-brand-primary">The Experience</a>
+                <a href="founders.html" class="hover:text-brand-primary">Become a Founder</a>
+                <a href="influencers.html" class="hover:text-brand-primary">Press & Influencers</a>
+                <a href="account.html" class="bg-brand-surface text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-primary flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
+                    <span>Account</span>
+                </a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden focus:outline-none z-30">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none z-30"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
         </div>
     </header>
     
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-brand-black bg-opacity-95 z-50 flex flex-col items-center justify-center text-white">
-        <button id="close-mobile-menu" class="absolute top-6 right-6 focus:outline-none">
-             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <nav class="flex flex-col space-y-8 text-2xl text-center">
-            <a href="index.html" class="hover:text-brand-red transition-colors duration-300">Home</a>
-            <a href="vision.html" class="hover:text-brand-red transition-colors duration-300">The Vision</a>
-            <a href="founders.html" class="hover:text-brand-red transition-colors duration-300">Become a Founder</a>
-            <a href="influencers.html" class="hover:text-brand-red transition-colors duration-300">Press & Influencers</a>
-        </nav>
-    </div>
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-brand-bg bg-opacity-95 z-50 flex flex-col items-center justify-center text-white"><button id="close-mobile-menu" class="absolute top-6 right-6"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button><nav class="flex flex-col space-y-8 text-2xl text-center"><a href="index.html">Home</a><a href="vision.html">The Vision</a><a href="experience.html">The Experience</a><a href="founders.html">Become a Founder</a><a href="influencers.html">Press & Influencers</a><a href="account.html">Account</a></nav></div>
+    
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section" class="video-background-container relative h-screen flex items-center justify-center text-white">
+             <div class="video-background">
+                <iframe id="hero-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+             <div class="absolute inset-0 bg-black opacity-60 z-10"></div>
+            <div class="relative z-20 text-center px-4">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6">Become a Founding Voyager</h1>
+                <p class="text-lg md:text-2xl mb-8">Help us establish humanity's first outpost dedicated to tranquility and be rewarded with an experience you helped create.</p>
+                <a href="founders.html" class="bg-brand-primary text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-brand-primary-hover transition-all duration-300">Fund the Expedition</a>
+            </div>
+        </section>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden bg-brand-black">
-        <canvas id="night-sky-canvas"></canvas>
-        <div class="relative z-10 text-center px-4 bg-black bg-opacity-50 p-10 rounded-xl max-w-3xl">
-            <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6">Become a Founder.</h1>
-            <p class="text-lg md:text-2xl mb-8">Help us build a modern glamping retreat from the ground up and be rewarded with an experience you helped create.</p>
-            <a href="founders.html" class="bg-brand-red text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-brand-red-hover transition-all duration-300">Fund The Dream</a>
-        </div>
-    </section>
-
-    <!-- Vision/About Section with Video Background -->
-    <section class="video-background-container py-20 sm:py-24 px-6 text-center text-white">
-        <!-- Video Background -->
-        <div class="video-background">
-            <iframe
-                src="https://www.youtube.com/embed/gU4UXpxfEWU?autoplay=1&mute=1&loop=1&playlist=gU4UXpxfEWU&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
-        </div>
-        <!-- Dark Overlay -->
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-        <!-- Content -->
-        <div class="relative z-10">
+        <!-- Vision/About Section -->
+        <section class="py-20 sm:py-24 px-6 text-center bg-brand-surface">
             <div class="max-w-3xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">A Place for Peace, Before It Even Exists</h2>
-                <p class="text-lg text-brand-light-gray leading-relaxed">We’re building a peaceful escape from the noise. The Quiet Canvas will be a minimalist glamping experience tucked into the vast Texas landscape, where creativity, relaxation, and connection thrive. By becoming a founder, you don't just pre-order a stay—you help us bring this vision to life, from untouched land to luxury lodge.</p>
-                 <a href="vision.html" class="inline-block mt-8 text-brand-red font-bold text-lg hover:text-red-400 transition-colors duration-300">Discover Our Full Vision & Roadmap &rarr;</a>
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">An Outpost on a New World</h2>
+                <p class="text-lg text-brand-text leading-relaxed">The Quiet Canvas is an expedition to create Terra Nova—a peaceful escape from the noise of the "Old World." It's a minimalist retreat on the Texas coast where creativity and connection thrive under a new sky. By becoming a founder, you don't just pre-order a stay—you help establish the first outpost.</p>
+                 <a href="vision.html" class="inline-block mt-8 text-brand-primary font-bold text-lg hover:text-brand-primary-hover transition-colors duration-300">Discover Our Mission & Roadmap &rarr;</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-20 px-6 bg-brand-black">
-        <div class="max-w-6xl mx-auto text-center">
-             <h2 class="text-3xl md:text-4xl font-serif text-white mb-12">Why We're Different</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div>
-                    <svg class="w-16 h-16 mx-auto mb-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    <h3 class="text-xl font-bold text-white mb-2">Tranquil by Design</h3>
-                    <p>Stylish, eco-friendly tents with modern comforts. We're designing for comfort, quiet, and a deep connection to the stars above.</p>
-                </div>
-                <div>
-                     <svg class="w-16 h-16 mx-auto mb-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.875 21l2.5-6.5L2 9.5l7.5-.5L12 2l2.5 7 7.5.5-5.375 5L19.125 21 12 17.5 4.875 21z"></path></svg>
-                    <h3 class="text-xl font-bold text-white mb-2">Nature First</h3>
-                    <p>Minimal impact, maximum harmony. Our site will be chosen to preserve the natural beauty of the landscape and the darkness of the night sky.</p>
-                </div>
-                <div>
-                    <svg class="w-16 h-16 mx-auto mb-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    <h3 class="text-xl font-bold text-white mb-2">Community Funded</h3>
-                    <p>Your presale purchase isn’t just a reservation—it’s the literal foundation of this retreat. You are as much a founder as we are.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Founder Tiers Section -->
-    <section id="founder-tiers" class="py-20 px-6 bg-brand-gray">
-        <div class="container mx-auto">
-            <h2 class="text-3xl md:text-4xl font-serif text-center text-white mb-6">Help Us Build The Dream</h2>
-            <p class="max-w-3xl mx-auto text-lg text-center text-brand-light-gray mb-16">
-                Your early support is critical. By purchasing a founder package, you provide the capital needed to secure the land and begin development. In return, you receive exclusive, high-value rewards and become a permanent part of The Quiet Canvas story.
-            </p>
-            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Tier 1 -->
-                <div class="bg-brand-black p-8 rounded-lg border border-brand-mid-gray flex flex-col transform hover:scale-105 hover:border-brand-red transition-all duration-300">
-                    <h3 class="text-2xl font-serif text-white mb-2">The Pioneer</h3>
-                    <p class="font-bold text-brand-red text-3xl mb-4">$500</p>
-                    <ul class="space-y-3 mb-6 text-brand-light-gray flex-grow">
-                        <li>&#10003; A voucher for a <strong>3-night future stay</strong>.</li>
-                        <li>&#10003; Your name on our digital Founders' Wall.</li>
-                        <li>&#10003; Exclusive construction updates.</li>
-                    </ul>
-                    <a href="founders.html" class="mt-auto block w-full text-center bg-brand-mid-gray text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-red transition-all duration-300">Select Pioneer</a>
-                </div>
-                 <!-- Tier 2 -->
-                <div class="bg-brand-black p-8 rounded-lg border-2 border-brand-red flex flex-col transform hover:scale-105 transition-all duration-300 shadow-lg shadow-brand-red/20">
-                    <h3 class="text-2xl font-serif text-white mb-2">The Visionary</h3>
-                    <p class="font-bold text-brand-red text-3xl mb-4">$1,500</p>
-                    <ul class="space-y-3 mb-6 text-brand-light-gray flex-grow">
-                        <li>&#10003; A voucher for a <strong>7-night future stay</strong>.</li>
-                        <li>&#10003; Everything in the Pioneer package.</li>
-                        <li>&#10003; An invitation to our <strong>Founders' Opening Weekend</strong>.</li>
-                        <li>&#10003; A welcome package with branded merchandise.</li>
-                    </ul>
-                     <a href="founders.html" class="mt-auto block w-full text-center bg-brand-red text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-red-hover transition-all duration-300">Select Visionary</a>
-                </div>
-                 <!-- Tier 3 -->
-                <div class="bg-brand-black p-8 rounded-lg border border-brand-mid-gray flex flex-col transform hover:scale-105 hover:border-brand-red transition-all duration-300">
-                    <h3 class="text-2xl font-serif text-white mb-2">The Legacy</h3>
-                    <p class="font-bold text-brand-red text-3xl mb-4">$5,000</p>
-                    <ul class="space-y-3 mb-6 text-brand-light-gray flex-grow">
-                        <li>&#10003; A voucher for a <strong>14-night future stay</strong> (or two 7-night stays).</li>
-                        <li>&#10003; Everything in the Visionary package.</li>
-                        <li>&#10003; <strong>Name a trail or landmark</strong> on the property.</li>
-                        <li>&#10003; A lifetime <strong>15% discount</strong> on all future bookings.</li>
-                    </ul>
-                     <a href="founders.html" class="mt-auto block w-full text-center bg-brand-mid-gray text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-red transition-all duration-300">Select Legacy</a>
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-6 bg-brand-bg">
+            <div class="max-w-6xl mx-auto text-center">
+                 <h2 class="text-3xl md:text-4xl font-serif text-white mb-12">Expedition Principles</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div>
+                        <svg class="w-16 h-16 mx-auto mb-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <h3 class="text-xl font-bold text-white mb-2">Designed for Discovery</h3>
+                        <p>Our "Observer Pods" are more than shelter; they are stylish, eco-friendly habitats with modern comforts, designed for quiet contemplation of the cosmos.</p>
+                    </div>
+                    <div>
+                         <svg class="w-16 h-16 mx-auto mb-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.875 21l2.5-6.5L2 9.5l7.5-.5L12 2l2.5 7 7.5.5-5.375 5L19.125 21 12 17.5 4.875 21z"></path></svg>
+                        <h3 class="text-xl font-bold text-white mb-2">Respect for the Native</h3>
+                        <p>Minimal impact, maximum harmony. Our site will be chosen to preserve the natural beauty of the coastal landscape and the darkness of the night sky.</p>
+                    </div>
+                    <div>
+                        <svg class="w-16 h-16 mx-auto mb-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <h3 class="text-xl font-bold text-white mb-2">Fund the Expedition</h3>
+                        <p>Your presale purchase isn’t just a reservation—it’s the fuel for the mission. You are as much a founder of Terra Nova as we are.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="py-10 px-6 bg-brand-black text-center text-sm text-gray-400">
+        <!-- Founder Tiers Section -->
+        <section id="founder-tiers" class="py-20 px-6 bg-brand-surface">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-4xl font-serif text-center text-white mb-6">Join the Founding Crew</h2>
+                <p class="max-w-3xl mx-auto text-lg text-center text-brand-text mb-16">
+                    Your early support is critical to establishing our outpost. By purchasing a founder package, you provide the capital needed to secure the land and begin development, and in return, become a permanent part of the Terra Nova story.
+                </p>
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Tier 1 -->
+                    <div class="bg-brand-bg p-8 rounded-lg border border-brand-border flex flex-col transform hover:scale-105 hover:border-brand-primary transition-all duration-300">
+                        <h3 class="text-2xl font-serif text-white mb-2">Pioneer</h3>
+                        <p class="font-bold text-brand-primary text-3xl mb-4">$500</p>
+                        <ul class="space-y-3 mb-6 text-brand-text flex-grow">
+                            <li>&#10003; Voucher for a <strong>3-night stay</strong> in a Habitat.</li>
+                            <li>&#10003; Name on the digital Founder's Monolith.</li>
+                            <li>&#10003; Exclusive mission updates.</li>
+                        </ul>
+                        <a href="founders.html" class="mt-auto block w-full text-center bg-brand-border text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-primary transition-all duration-300">Become a Pioneer</a>
+                    </div>
+                     <!-- Tier 2 -->
+                    <div class="bg-brand-bg p-8 rounded-lg border-2 border-brand-primary flex flex-col transform hover:scale-105 transition-all duration-300 shadow-lg shadow-brand-primary/20">
+                        <h3 class="text-2xl font-serif text-white mb-2">Visionary</h3>
+                        <p class="font-bold text-brand-primary text-3xl mb-4">$1,500</p>
+                        <ul class="space-y-3 mb-6 text-brand-text flex-grow">
+                            <li>&#10003; Voucher for a <strong>7-night stay</strong> in a Habitat.</li>
+                            <li>&#10003; All Pioneer perks.</li>
+                            <li>&#10003; Invitation to the <strong>Founders' First Landing</strong> event.</li>
+                            <li>&#10003; Voyager's Welcome Kit.</li>
+                        </ul>
+                         <a href="founders.html" class="mt-auto block w-full text-center bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-primary-hover transition-all duration-300">Become a Visionary</a>
+                    </div>
+                     <!-- Tier 3 -->
+                    <div class="bg-brand-bg p-8 rounded-lg border border-brand-border flex flex-col transform hover:scale-105 hover:border-brand-primary transition-all duration-300">
+                        <h3 class="text-2xl font-serif text-white mb-2">Legacy</h3>
+                        <p class="font-bold text-brand-primary text-3xl mb-4">$5,000</p>
+                        <ul class="space-y-3 mb-6 text-brand-text flex-grow">
+                            <li>&#10003; Voucher for a <strong>14-night stay</strong>.</li>
+                            <li>&#10003; All Visionary perks.</li>
+                            <li>&#10003; <strong>Name a celestial landmark</strong> on the property.</li>
+                            <li>&#10003; A lifetime <strong>15% discount</strong> on all future stays.</li>
+                        </ul>
+                         <a href="founders.html" class="mt-auto block w-full text-center bg-brand-border text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-primary transition-all duration-300">Leave a Legacy</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer class="py-10 px-6 bg-brand-bg text-center text-sm text-gray-400">
         <a href="index.html">
             <img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 mx-auto mb-4">
         </a>
-        <p class="mb-4">&copy; 2025 The Quiet Canvas. Join us in building the dream.</p>
+        <p class="mb-4">&copy; 2025 The Quiet Canvas. Join the expedition.</p>
     </footer>
 
     <script>
-        // --- Mobile menu toggle script ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.querySelectorAll('#mobile-menu a, header a');
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+            closeMobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            document.querySelectorAll('#mobile-menu a, header a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(!mobileMenu.classList.contains('hidden')) {
+                       mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
 
-        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
-        closeMobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        
-        // --- Navigation Handler ---
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                if(!mobileMenu.classList.contains('hidden')) {
-                   mobileMenu.classList.add('hidden');
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
                 }
             });
-        });
-        
-        // --- Animated Night Sky script ---
-        const canvas = document.getElementById('night-sky-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let stars = [];
-        const numStars = 400; 
-        const maxStarRadius = 1.5;
 
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function Star(x, y, radius, color, velocity) {
-            this.x = x; this.y = y; this.radius = radius; this.color = color; this.velocity = velocity;
-        }
-
-        Star.prototype.draw = function() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        Star.prototype.update = function() {
-            this.x += this.velocity.x; 
-            this.y += this.velocity.y;
-
-            if (this.x - this.radius > canvas.width) this.x = 0 - this.radius;
-            if (this.x + this.radius < 0) this.x = canvas.width + this.radius;
-            if (this.y - this.radius > canvas.height) this.y = 0 - this.radius;
-            if (this.y + this.radius < 0) this.y = canvas.height + this.radius;
-            this.draw();
-        }
-
-        function init() {
-            setCanvasSize();
-            stars = [];
-            for (let i = 0; i < numStars; i++) {
-                const radius = Math.random() * maxStarRadius;
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                let color;
-                const rand = Math.random();
-                if (rand < 0.01) { color = 'rgba(220, 38, 38, 0.7)'; } 
-                else { color = 'rgba(229, 231, 235, 0.8)'; }
-                const velocity = { x: (Math.random() - 0.5) * 0.2, y: (Math.random() - 0.5) * 0.2 };
-                stars.push(new Star(x, y, radius, color, velocity));
+            const videoId = 'ztVV54sPOns';
+            const videoFrame = document.getElementById('hero-video');
+            if (videoFrame) {
+                const randomStartTime = Math.floor(Math.random() * 10800);
+                videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=${randomStartTime}`;
             }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(star => star.update());
-        }
-        
-        window.addEventListener('resize', init);
-        
-        // Ensure script runs after the DOM is fully loaded
-        window.onload = function() {
-            init();
-            animate();
-        };
+        });
     </script>
 </body>
 </html>
