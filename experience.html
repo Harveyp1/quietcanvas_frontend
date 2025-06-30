@@ -35,8 +35,28 @@
         ::-webkit-scrollbar-thumb:hover { background: #e040fb; }
         .fade-in-item { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .fade-in-item.is-visible { opacity: 1; transform: translateY(0); }
-        .video-background { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; transform: translate(-50%, -50%); pointer-events: none; overflow: hidden; z-index: 1; }
-        .video-background iframe { width: calc(100% + 200px); height: calc(100% + 200px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 177.77vh; /* 16/9 aspect ratio */
+            min-width: 100vw;
+            height: 100vh;
+            min-height: 56.25vw; /* 16/9 aspect ratio */
+            transform: translate(-50%, -50%);
+        }
+
         #main-header { transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out; }
         #main-header.scrolled { background-color: rgba(15, 15, 36, 0.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: rgba(48, 48, 74, 0.5); }
     </style>
@@ -80,8 +100,8 @@
         <!-- The Concept Section -->
         <section class="py-20 px-6 bg-brand-surface text-center">
             <div class="max-w-3xl mx-auto fade-in-item">
-                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">Leave The Old World Behind</h2>
-                <p class="text-lg text-brand-text leading-relaxed">At The Quiet Canvas, you are not just a guest; you are a Voyager arriving at Terra Nova. Our entire experience is crafted around a single idea: to provide a sanctuary so complete, it feels like a world apart. A world free from digital noise, governed by the rhythm of the tides and the light of the stars. Your stay is a narrative, and you are the main character.</p>
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">Escape The Great Static</h2>
+                <p class="text-lg text-brand-text leading-relaxed">The modern world is a constant hum of digital noise, a "Great Static" that dulls our senses and disconnects us from ourselves. But on the coast of South Texas, we have discovered an anomaly—a pocket of profound quiet where the static fades and the cosmos comes into focus. We call this place Terra Nova. The Quiet Canvas is the organization funding the expedition to establish a permanent outpost here, and you are invited to be one of the first Voyagers to make the journey.</p>
             </div>
         </section>
 
@@ -89,11 +109,14 @@
         <section class="py-20 px-6 bg-brand-bg">
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="fade-in-item">
-                    <h2 class="text-3xl font-serif text-brand-primary mb-4">Your Voyage Begins Before You Arrive</h2>
-                    <p class="text-lg text-brand-text leading-relaxed mb-4">A week before your arrival, you'll receive a "Voyager's Transmission"—a link to a private, 20-minute audio experience. Designed to be played during your drive, this audiobook is the first step in your journey. It will guide you to consciously disconnect from the Old World, introduce you to the lore of Terra Nova, and build anticipation for the moment you arrive at the Shore of Tranquility.</p>
+                    <h2 class="text-3xl font-serif text-brand-primary mb-4">The Transmission: Your Voyage Begins</h2>
+                    <p class="text-lg text-brand-text leading-relaxed mb-4">Your journey does not begin upon arrival; it begins with the decision to leave the Old World behind. A week before your stay, you will receive "The Transmission": a private link to a 20-minute audio narrative. This is your pre-voyage briefing, designed to be played as you drive towards the coast. It will guide you to shed the weight of the Great Static and prepare you to cross the threshold into Terra Nova.</p>
                 </div>
                  <div class="fade-in-item">
-                     <img src="https://placehold.co/600x600/1a1a2e/e0e0e0?text=Audiobook+Experience" alt="A phone showing an audiobook player with a space-themed cover" class="rounded-lg shadow-2xl">
+                     <img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/voyager_transmission.png" 
+                          onerror="this.onerror=null;this.src='https://placehold.co/600x600/1a1a2e/e0e0e0?text=Image+Not+Found';"
+                          alt="A view from inside a car at night, looking up at a vast, starry sky, symbolizing the start of a journey." 
+                          class="rounded-lg shadow-2xl object-cover w-full h-full aspect-square">
                  </div>
             </div>
         </section>
@@ -101,22 +124,22 @@
         <!-- The Lore Section -->
         <section class="py-20 px-6 bg-brand-surface">
             <div class="max-w-6xl mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-serif text-white mb-12 fade-in-item">The Lore of Terra Nova</h2>
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-12 fade-in-item">Life at the Outpost</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                     <div class="fade-in-item" style="transition-delay: 100ms;">
                         <img src="https://placehold.co/400x300/e040fb/0f0f24?text=Habitats" alt="A single, glowing canvas tent under a starry sky" class="rounded-lg mb-4">
                         <h3 class="text-2xl font-serif text-white mb-2">Observer Pods</h3>
-                        <p>Your private lodging is not a tent, but a self-sufficient "Habitat" or "Observer Pod," designed for comfort, reflection, and unparalleled views of the cosmos.</p>
+                        <p>Your private lodging is not a tent, but a self-sufficient "Habitat," designed for comfort, reflection, and unparalleled views of the cosmos. Each pod is a sanctuary for recalibration.</p>
                     </div>
                      <div class="fade-in-item" style="transition-delay: 200ms;">
                          <img src="https://placehold.co/400x300/30304a/e0e0e0?text=The+Navigator" alt="A person looking through a large telescope at the night sky" class="rounded-lg mb-4">
                         <h3 class="text-2xl font-serif text-white mb-2">The Navigator</h3>
-                        <p>Our resident astronomer is your guide to the stars. They lead nightly expeditions to chart the constellations and understand our place in the universe.</p>
+                        <p>Our resident astronomer is your guide to the stars. They lead nightly expeditions at The Oasis to chart the constellations and reconnect you with our place in the universe.</p>
                     </div>
                     <div class="fade-in-item" style="transition-delay: 300ms;">
                         <img src="https://placehold.co/400x300/0f0f24/e0e0e0?text=Field+Kit" alt="An open journal, a star chart, and a vintage compass" class="rounded-lg mb-4">
-                        <h3 class="text-2xl font-serif text-white mb-2">Voyager's Field Kit</h3>
-                        <p>Upon arrival, you'll receive your field kit. It contains a logbook for your thoughts, a celestial chart, and a guide to the native flora and fauna of Terra Nova.</p>
+                        <h3 class="text-2xl font-serif text-white mb-2">Voyager's Logbook</h3>
+                        <p>Upon arrival, you'll receive your "Voyager's Field Kit." It contains a high-quality journal—your Logbook—to document your thoughts, discoveries, and the journey back to yourself.</p>
                     </div>
                 </div>
             </div>
