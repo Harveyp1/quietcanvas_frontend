@@ -34,8 +34,7 @@
         ::-webkit-scrollbar-thumb { background: #30304a; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #e040fb; }
         
-        .video-background-container { position: relative; overflow: hidden; background-color: #0f0f24; }
-        .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; }
         .video-background iframe { width: calc(100% + 200px); height: calc(100% + 200px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
         #main-header { transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out; }
@@ -67,12 +66,12 @@
     
     <main>
         <!-- Hero Section -->
-        <section id="hero-section" class="video-background-container relative h-screen flex items-center justify-center text-white">
+        <section id="hero-section" class="relative h-screen flex items-center justify-center text-white overflow-hidden bg-brand-bg">
              <div class="video-background">
                 <iframe id="hero-video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
-             <div class="absolute inset-0 bg-black opacity-60 z-10"></div>
-            <div class="relative z-20 text-center px-4">
+             <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+            <div class="relative z-20 text-center px-4 max-w-4xl">
                 <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6">Become a Founding Voyager</h1>
                 <p class="text-lg md:text-2xl mb-8">Help us establish humanity's first outpost dedicated to tranquility and be rewarded with an experience you helped create.</p>
                 <a href="founders.html" class="bg-brand-primary text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-brand-primary-hover transition-all duration-300">Fund the Expedition</a>
@@ -112,55 +111,8 @@
             </div>
         </section>
 
-        <!-- Founder Tiers Section -->
-        <section id="founder-tiers" class="py-20 px-6 bg-brand-surface">
-            <div class="container mx-auto">
-                <h2 class="text-3xl md:text-4xl font-serif text-center text-white mb-6">Join the Founding Crew</h2>
-                <p class="max-w-3xl mx-auto text-lg text-center text-brand-text mb-16">
-                    Your early support is critical to establishing our outpost. By purchasing a founder package, you provide the capital needed to secure the land and begin development, and in return, become a permanent part of the Terra Nova story.
-                </p>
-                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Tier 1 -->
-                    <div class="bg-brand-bg p-8 rounded-lg border border-brand-border flex flex-col transform hover:scale-105 hover:border-brand-primary transition-all duration-300">
-                        <h3 class="text-2xl font-serif text-white mb-2">Pioneer</h3>
-                        <p class="font-bold text-brand-primary text-3xl mb-4">$500</p>
-                        <ul class="space-y-3 mb-6 text-brand-text flex-grow">
-                            <li>&#10003; Voucher for a <strong>3-night stay</strong> in a Habitat.</li>
-                            <li>&#10003; Name on the digital Founder's Monolith.</li>
-                            <li>&#10003; Exclusive mission updates.</li>
-                        </ul>
-                        <a href="founders.html" class="mt-auto block w-full text-center bg-brand-border text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-primary transition-all duration-300">Become a Pioneer</a>
-                    </div>
-                     <!-- Tier 2 -->
-                    <div class="bg-brand-bg p-8 rounded-lg border-2 border-brand-primary flex flex-col transform hover:scale-105 transition-all duration-300 shadow-lg shadow-brand-primary/20">
-                        <h3 class="text-2xl font-serif text-white mb-2">Visionary</h3>
-                        <p class="font-bold text-brand-primary text-3xl mb-4">$1,500</p>
-                        <ul class="space-y-3 mb-6 text-brand-text flex-grow">
-                            <li>&#10003; Voucher for a <strong>7-night stay</strong> in a Habitat.</li>
-                            <li>&#10003; All Pioneer perks.</li>
-                            <li>&#10003; Invitation to the <strong>Founders' First Landing</strong> event.</li>
-                            <li>&#10003; Voyager's Welcome Kit.</li>
-                        </ul>
-                         <a href="founders.html" class="mt-auto block w-full text-center bg-brand-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-primary-hover transition-all duration-300">Become a Visionary</a>
-                    </div>
-                     <!-- Tier 3 -->
-                    <div class="bg-brand-bg p-8 rounded-lg border border-brand-border flex flex-col transform hover:scale-105 hover:border-brand-primary transition-all duration-300">
-                        <h3 class="text-2xl font-serif text-white mb-2">Legacy</h3>
-                        <p class="font-bold text-brand-primary text-3xl mb-4">$5,000</p>
-                        <ul class="space-y-3 mb-6 text-brand-text flex-grow">
-                            <li>&#10003; Voucher for a <strong>14-night stay</strong>.</li>
-                            <li>&#10003; All Visionary perks.</li>
-                            <li>&#10003; <strong>Name a celestial landmark</strong> on the property.</li>
-                            <li>&#10003; A lifetime <strong>15% discount</strong> on all future stays.</li>
-                        </ul>
-                         <a href="founders.html" class="mt-auto block w-full text-center bg-brand-border text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-primary transition-all duration-300">Leave a Legacy</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
-    <footer class="py-10 px-6 bg-brand-bg text-center text-sm text-gray-400">
+    <footer class="py-10 px-6 bg-brand-surface text-center text-sm text-gray-400">
         <a href="index.html">
             <img src="https://github.com/Harveyp1/quietcanvas_frontend/raw/main/TQCLOGO1-white.png" alt="The Quiet Canvas Logo" class="h-12 mx-auto mb-4">
         </a>
