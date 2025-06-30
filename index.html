@@ -54,6 +54,31 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #DC2626;
         }
+        
+        /* Styles for the background video section */
+        .video-background-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .video-background iframe {
+            width: 100vw;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            min-width: 177.77vh; /* 16:9 aspect ratio */
+            min-height: 100vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 <body class="bg-brand-black text-brand-light-gray font-sans">
@@ -99,12 +124,26 @@
         </div>
     </section>
 
-    <!-- Vision/About Section -->
-    <section id="vision" class="py-20 px-6 bg-brand-gray text-center">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">A Place for Peace, Before It Even Exists</h2>
-            <p class="text-lg text-brand-light-gray leading-relaxed">We’re building a peaceful escape from the noise. The Quiet Canvas will be a minimalist glamping experience tucked into the vast Texas landscape, where creativity, relaxation, and connection thrive. By becoming a founder, you don't just pre-order a stay—you help us bring this vision to life, from untouched land to luxury lodge.</p>
-             <a href="vision.html" class="inline-block mt-8 text-brand-red font-bold text-lg hover:text-brand-red-hover transition-colors duration-300">Discover Our Full Vision & Roadmap &rarr;</a>
+    <!-- Vision/About Section with Video Background -->
+    <section class="video-background-container py-20 sm:py-24 px-6 text-center text-white">
+        <!-- Video Background -->
+        <div class="video-background">
+            <iframe
+                src="https://www.youtube.com/embed/gU4UXpxfEWU?autoplay=1&mute=1&loop=1&playlist=gU4UXpxfEWU&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-6">A Place for Peace, Before It Even Exists</h2>
+                <p class="text-lg text-brand-light-gray leading-relaxed">We’re building a peaceful escape from the noise. The Quiet Canvas will be a minimalist glamping experience tucked into the vast Texas landscape, where creativity, relaxation, and connection thrive. By becoming a founder, you don't just pre-order a stay—you help us bring this vision to life, from untouched land to luxury lodge.</p>
+                 <a href="vision.html" class="inline-block mt-8 text-brand-red font-bold text-lg hover:text-red-400 transition-colors duration-300">Discover Our Full Vision & Roadmap &rarr;</a>
+            </div>
         </div>
     </section>
 
